@@ -7,17 +7,16 @@ dotenv.config();
 const app = express();
 connectDB();
 
+app.use(express.json());
+
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'https://todo-app-omega-gules-54.vercel.app/signup'
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+  origin: 'https://todo-app-omega-gules-54.vercel.app/', // replace with actual frontend domain
+  credentials: true
 }));
 
 
-app.use(express.json());
+
+
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
