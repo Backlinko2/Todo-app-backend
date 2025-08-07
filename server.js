@@ -8,9 +8,19 @@ const app = express();
 connectDB();
 
 app.use(express.json());
+const allowedOrigins = ['https://todo-app-omega-gules-54.vercel.app'];
 
 app.use(cors({
-  origin: 'https://todo-app-omega-gules-54.vercel.app/', // replace with actual frontend domain
+  origin: function (origin, callback) {
+    
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true); 
+    } else {
+      callback(new Error('Not allowed by CORS')); 
+    }
+  },
   credentials: true
 }));
 
